@@ -54,6 +54,24 @@ function showLoading() {
   }, 1000)
 }
 
+// Filter posts by input
+function filterPosts(e) { 
+  const term = e.target.value.toUppercase()
+  const posts = document.querySelectorAll('.post')
+  // this will give us a node list, which is basically an array
+
+  posts.forEach(post => { 
+    const title = post.querySelector('.post-title').innerText.toUppercase
+    const body = post.querySelector('.post-body').innerText.toUppercase
+
+    if(title.indexOf(term)> -1 || body.indexOf(term) > -1) { 
+      post.style.display = 'flex'
+    } else { 
+      post.style.display = 'none'
+    }
+  })
+
+}
 
 // Show initial posts
 showPosts();
@@ -67,5 +85,5 @@ window.addEventListener('scroll', () => {
   }
 })
 
-
+filter.addEventListener('input', filterPosts)
 
