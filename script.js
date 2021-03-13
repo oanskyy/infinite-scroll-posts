@@ -18,15 +18,14 @@ async function getPosts() {
   return data
 }
 
-
 // Show posts in DOM
-async function showPosts() { 
+async function showPosts() {
   // this returns a PROMISE, so we want to await on that
-  const posts = await getPosts();
+  const posts = await getPosts()
 
-  posts.forEach(post => { 
-    const postEl = document.createElement('div')
-    postEl.classList.add('post')
+  posts.forEach(post => {
+    const postEl = document.createElement("div")
+    postEl.classList.add("post")
     postEl.innerHTML = `
     <div class="number">${post.id}</div>
     <div class="post-info">
@@ -40,50 +39,47 @@ async function showPosts() {
 }
 
 // Show loader and fetch more posts
-function showLoading() { 
+function showLoading() {
   loading.classList.add("show")
 
-  setTimeout(()=> { 
+  setTimeout(() => {
     loading.classList.remove("show")
 
-    setTimeout(()=> { 
-      page++;
+    setTimeout(() => {
+      page++
       showPosts()
     }, 300)
-
   }, 1000)
 }
 
 // Filter posts by input
-function filterPosts(e) { 
-  const term = e.target.value.toUppercase()
-  const posts = document.querySelectorAll('.post')
+function filterPosts(e) {
+  const term = e.target.value.toUpperCase()
+  const posts = document.querySelectorAll(".post")
   // this will give us a node list, which is basically an array
 
-  posts.forEach(post => { 
-    const title = post.querySelector('.post-title').innerText.toUppercase
-    const body = post.querySelector('.post-body').innerText.toUppercase
+  posts.forEach(post => {
+    const title = post.querySelector(".post-title").innerText.toUpperCase()
+    const body = post.querySelector(".post-body").innerText.toUpperCase()
 
-    if(title.indexOf(term)> -1 || body.indexOf(term) > -1) { 
-      post.style.display = 'flex'
-    } else { 
-      post.style.display = 'none'
+    if (title.indexOf(term) > -1 || body.indexOf(term) > -1) {
+      post.style.display = "flex"
+    } else {
+      post.style.display = "none"
     }
   })
-
 }
 
 // Show initial posts
-showPosts();
+showPosts()
 
-window.addEventListener('scroll', () => { 
+window.addEventListener("scroll", () => {
   // use destructuring to pull variables out of an object
-  const {scrollTop, scrollHeight, clientHeight} = document.documentElement
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement
 
-  if(scrollTop + clientHeight >= scrollHeight - 5 ) { 
+  if (scrollTop + clientHeight >= scrollHeight - 5) {
     showLoading()
   }
 })
 
-filter.addEventListener('input', filterPosts)
-
+filter.addEventListener("input", filterPosts)
